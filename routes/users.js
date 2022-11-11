@@ -12,6 +12,14 @@ router.get('/protected', passport.authenticate("jwt", {session: false}),(req, re
 	})
 });
 
+router.get('/custom', utils.authMiddleware, (req, res, next) => {
+	console.log(req)
+	res.json({
+		success: true,
+		message: "You have access to this protected route"
+	})
+});
+
 // TODO
 router.post('/login', function(req, res, next){
 	User.findOne({ username: req.body.username })
@@ -34,7 +42,7 @@ router.post('/login', function(req, res, next){
 			if(!isValid){
 				return res.status(401).json({
 					success: false,
-					meessage: "Invalid password"
+					message: "Invalid password"
 				})
 			}
 
