@@ -5,7 +5,11 @@ const passport = require('passport');
 const utils = require('../lib/utils');
 
 // TODO
-router.get('/protected', (req, res, next) => {
+router.get('/protected', passport.authenticate("jwt", {session: false}),(req, res, next) => {
+	res.json({
+		success: true,
+		message: "You have access to this protected route"
+	})
 });
 
 // TODO
